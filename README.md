@@ -12,4 +12,4 @@ git reset --hard origin/master
 ```
 git add -A
 git commit -m "weekly update"
-
+git push
