@@ -22,4 +22,4 @@ git push
   * URL: /
   * Path: /home/yourusername/staticsite
 5. Hit Reload on the web tab
-6. Test your site
+6. Test your site: yourusername.pythonanywhere.com
