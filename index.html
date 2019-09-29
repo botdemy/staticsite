@@ -1,11 +1,78 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<title>Welcome</title>
+    <meta charset="UTF-8" />
+    <title>Game Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.19.0/phaser.js"></script>
 </head>
 <body>
+<script type="text/javascript">
 
-<h1>Welcome to your Static Site</h1>
+    var config = {
+        type: Phaser.AUTO,
+        width: 640,
+        height: 480,
 
+        physics: {
+            default: 'arcade'
+        },
+
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+
+    var player;
+
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+        //load a player file
+        this.load.spritesheet('girl','assets/girl.png', { frameWidth: 32, frameHeight: 48 });
+
+    }
+
+    function create ()
+    {
+        //display a player
+        player = this.physics.add.sprite(320,240,'girl');
+
+        //create an animation sequence for walking forward
+        this.anims.create({
+            key: 'down',
+            frames: this.anims.generateFrameNumbers('girl', { start: 0, end: 3 }),
+            frameRate: 15,
+            repeat: -1
+        });
+
+        //create animation for stop position
+        this.anims.create({
+            key: 'stop',
+            frames: [ { key: 'girl', frame: 0 } ],
+            frameRate: 20
+        });
+
+        //get cursor keys
+        cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    function update ()
+    {
+        //move a player according to cursor keys
+        if (cursors.down.isDown)
+        {
+            player.setVelocityY(100);
+            player.anims.play('down', true);
+        } else {
+            player.setVelocityX(0);
+            player.setVelocityY(0);
+            player.anims.play('stop', true);
+        }
+    }
+</script>
 </body>
+
 </html>
