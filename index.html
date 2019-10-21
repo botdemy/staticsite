@@ -14,7 +14,9 @@
         height: 480,
 
         physics: {
+            //todo: add gravity
             default: 'arcade'
+            //end todo
         },
 
         scene: {
@@ -30,9 +32,15 @@
 
     function preload ()
     {
-        //load a player file
-        this.load.spritesheet('girl','assets/girl.png', { frameWidth: 32, frameHeight: 48 });
+        //todo: assign "girl" to a different sprite of your choice in the asset folder
+        this.load.spritesheet('girl','assets/pirategirl.png', { frameWidth: 32, frameHeight: 48 });
+        //end todo
 
+        //todo: load ground floor
+        //end todo
+
+        //todo: load platforms
+        //end todo
     }
 
     function create ()
@@ -48,6 +56,24 @@
             repeat: -1
         });
 
+        //todo: add an animation sequence for walking left
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('girl', { start: 4, end: 7 }),
+            frameRate: 15,
+            repeat: -1
+        });
+        //end todo
+
+        //todo: add an animation sequence for walking right
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('girl', { start: 8, end: 11 }),
+            frameRate: 15,
+            repeat: -1
+        });
+        //end todo
+
         //create animation for stop position
         this.anims.create({
             key: 'stop',
@@ -57,20 +83,40 @@
 
         //get cursor keys
         cursors = this.input.keyboard.createCursorKeys();
+
+        //todo: add boundary to a player
+        //end todo
+
+        //todo: add ground & platforms. move this behind a girl
+        //end todo
+
+        //todo: add collision between player and platforms
+        //end todo
+
+        //todo: add bounce to a player
+        //end todo
     }
 
     function update ()
     {
-        //move a player according to cursor keys
+        //todo: associate left and rightkeyboard buttons to corresponding animation sequences
         if (cursors.down.isDown)
         {
             player.setVelocityY(100);
             player.anims.play('down', true);
-        } else {
+        }
+        //end todo
+        else {
             player.setVelocityX(0);
+            //todo: remove y velocity = 0 when stopped
             player.setVelocityY(0);
+            //end todo
             player.anims.play('stop', true);
         }
+
+        //todo: add jumping <- need a platform
+        //end todo
+
     }
 </script>
 </body>
