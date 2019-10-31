@@ -33,7 +33,7 @@
     function preload ()
     {
         //todo: assign "girl" to a different sprite of your choice in the asset folder
-        this.load.spritesheet('girl','assets/pirategirl.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('girl','assets/witch.png', { frameWidth: 32, frameHeight: 48 });
         //end todo
 
         //todo: load ground floor
@@ -85,6 +85,7 @@
         cursors = this.input.keyboard.createCursorKeys();
 
         //todo: add boundary to a player
+        player.setCollideWorldBounds(true);
         //end todo
 
         //todo: add ground & platforms. move this behind a girl
@@ -100,10 +101,15 @@
     function update ()
     {
         //todo: associate left and rightkeyboard buttons to corresponding animation sequences
-        if (cursors.down.isDown)
+        if (cursors.left.isDown)
         {
-            player.setVelocityY(100);
-            player.anims.play('down', true);
+            player.setVelocityX(-100);
+            player.anims.play('left', true);
+        }
+        else if (cursors.right.isDown)
+        {
+            player.setVelocityX(100);
+            player.anims.play('right', true);
         }
         //end todo
         else {
