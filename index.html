@@ -32,8 +32,12 @@
 
     function preload ()
     {
+        //todo: load background image
+        this.load.image('background','assets/halloween_background2.jpg');
+        //end todo
+
         //todo: assign "girl" to a different sprite of your choice in the asset folder
-        this.load.spritesheet('girl','assets/witch.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('girl','assets/witch2.png', { frameWidth: 32, frameHeight: 48 });
         //end todo
 
         //todo: load ground floor
@@ -41,10 +45,17 @@
 
         //todo: load platforms
         //end todo
+
+        //todo: load unicorn
+        //end todo
     }
 
     function create ()
     {
+        //todo: display background
+        this.add.image(320,240,'background');
+        //end todo
+
         //display a player
         player = this.physics.add.sprite(320,240,'girl');
 
@@ -95,6 +106,9 @@
         //end todo
 
         //todo: add bounce to a player
+        //end todo
+
+        //todo: add unicorns
         //end todo
     }
 
