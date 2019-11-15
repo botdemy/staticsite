@@ -15,7 +15,10 @@
 
         physics: {
             //todo: add gravity
-            default: 'arcade'
+            default: 'arcade',
+            arcade: {
+                gravity: {y:300}
+            }
             //end todo
         },
 
@@ -33,14 +36,15 @@
     function preload ()
     {
         //todo: load background image
-        this.load.image('background','assets/halloween_background2.jpg');
+        this.load.image('background','assets/rainbowland.png');
         //end todo
 
         //todo: assign "girl" to a different sprite of your choice in the asset folder
-        this.load.spritesheet('girl','assets/witch2.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('girl','assets/girl.png', { frameWidth: 32, frameHeight: 48 });
         //end todo
 
         //todo: load ground floor
+        this.load.image('ground','assets/ground.jpg');
         //end todo
 
         //todo: load platforms
@@ -100,9 +104,12 @@
         //end todo
 
         //todo: add ground & platforms. move this behind a girl
+        platforms = this.physics.add.staticGroup();
+        platforms.create(320,470,'ground');
         //end todo
 
         //todo: add collision between player and platforms
+        this.physics.add.collider(player,platforms);
         //end todo
 
         //todo: add bounce to a player
@@ -129,12 +136,15 @@
         else {
             player.setVelocityX(0);
             //todo: remove y velocity = 0 when stopped
-            player.setVelocityY(0);
+            //player.setVelocityY(0);
             //end todo
             player.anims.play('stop', true);
         }
 
         //todo: add jumping <- need a platform
+        if (cursors.up.isDown && player.body.touching.down) {
+            player.setVelocityY(-280);
+        }
         //end todo
 
     }
