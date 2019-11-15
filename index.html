@@ -31,6 +31,12 @@
 
     var player;
 
+    //todo: init score
+    //end todo
+
+    //todo: init gameover
+    //end todo
+
     var game = new Phaser.Game(config);
 
     function preload ()
@@ -51,6 +57,9 @@
         //end todo
 
         //todo: load unicorn
+        //end todo
+
+        //todo: load boulder
         //end todo
     }
 
@@ -112,15 +121,39 @@
         this.physics.add.collider(player,platforms);
         //end todo
 
-        //todo: add bounce to a player
+        //todo: add unicorns
         //end todo
 
-        //todo: add unicorns
+        //todo: add collision between unicorn and platforms
+        //end todo
+
+        //todo: add collision between unicorns and player
+        //end todo
+
+        //todo: add score
+        //end todo
+
+        //todo: add boulder
+        //end todo
+
+        //todo: add collision between boulders, platforms
+        //end todo
+
+        //todo: add collision between  boulders and player
         //end todo
     }
 
+    //todo: add a function to run when the player and unicorns overlap
+    //end todo
+
+    //todo: add a function to run when hit by a boulder
+    //end todo
+
     function update ()
     {
+        //todo: game over
+        //end todo
+
         //todo: associate left and rightkeyboard buttons to corresponding animation sequences
         if (cursors.left.isDown)
         {
@@ -146,7 +179,6 @@
             player.setVelocityY(-280);
         }
         //end todo
-
     }
 </script>
 </body>
