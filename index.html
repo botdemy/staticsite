@@ -54,9 +54,11 @@
         //end todo
 
         //todo: load platforms
+        this.load.image('platform','assets/platform.png')
         //end todo
 
         //todo: load unicorn
+        this.load.image('unicorn','assets/unicorn.png')
         //end todo
 
         //todo: load boulder
@@ -115,6 +117,10 @@
         //todo: add ground & platforms. move this behind a girl
         platforms = this.physics.add.staticGroup();
         platforms.create(320,470,'ground');
+        platforms.create(320,325,'platform');
+        platforms.create(0,200,'platform');
+        platforms.create(640,200,'platform');
+        platforms.create(320,80,'platform');
         //end todo
 
         //todo: add collision between player and platforms
@@ -122,15 +128,31 @@
         //end todo
 
         //todo: add unicorns
+        unicorns = this.physics.add.group();
+        unicorns.create(30,0,'unicorn');
+        unicorns.create(180,0,'unicorn');
+        unicorns.create(320,0,'unicorn');
+        unicorns.create(460,0,'unicorn');
+        unicorns.create(610,0,'unicorn');
+        unicorns.create(130,100,'unicorn');
+        unicorns.create(245,100,'unicorn');
+        unicorns.create(395,100,'unicorn');
+        unicorns.create(510,100,'unicorn');
+        unicorns.create(180,340,'unicorn');
+        unicorns.create(320,340,'unicorn');
+        unicorns.create(480,340,'unicorn');
         //end todo
 
         //todo: add collision between unicorn and platforms
+        this.physics.add.collider(unicorns,platforms);
         //end todo
 
         //todo: add collision between unicorns and player
+        this.physics.add.overlap(unicorns,player,catchunicorn,null,this);
         //end todo
 
         //todo: add score
+        scoreText = this.add.text(310,180,'0', {fontSize: '28px', fill: '#000000'});
         //end todo
 
         //todo: add boulder
@@ -144,6 +166,9 @@
     }
 
     //todo: add a function to run when the player and unicorns overlap
+    function catchunicorn(player,unicorn) {
+        unicorn.disableBody(true,true);
+    }
     //end todo
 
     //todo: add a function to run when hit by a boulder
