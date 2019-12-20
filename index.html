@@ -32,6 +32,7 @@
     var player;
 
     //todo: init score
+    var score = 0;
     //end todo
 
     //todo: init gameover
@@ -54,14 +55,15 @@
         //end todo
 
         //todo: load platforms
-        this.load.image('platform','assets/platform.png')
+        this.load.image('platform','assets/platform.png');
         //end todo
 
         //todo: load unicorn
-        this.load.image('unicorn','assets/unicorn.png')
+        this.load.image('unicorn','assets/unicorn.png');
         //end todo
 
         //todo: load boulder
+        this.load.image('boulder','assets/moonrock.png');
         //end todo
     }
 
@@ -156,18 +158,45 @@
         //end todo
 
         //todo: add boulder
+        boulders = this.physics.add.group()
         //end todo
 
         //todo: add collision between boulders, platforms
+        this.physics.add.collider(boulders,platforms);
+        this.physics.add.collider(boulders,boulders);
         //end todo
 
         //todo: add collision between  boulders and player
+
         //end todo
     }
 
     //todo: add a function to run when the player and unicorns overlap
     function catchunicorn(player,unicorn) {
         unicorn.disableBody(true,true);
+
+        score += 10;
+        scoreText.setText(score);
+
+        //if no more unicorn, start over
+        if (unicorns.countActive(true) == 0)
+        {
+            unicorns.children.iterate(function (child) {
+                child.enableBody(true, child.x,child.y, true,true);
+            });
+
+            //add boulder
+            if (player.x < 320) {
+                var x = Phaser.Math.Between(540,640)
+            } else {
+                var x = Phaser.Math.Between(0,100)
+            }
+
+            var boulder = boulders.create(x,20,'boulder');
+            boulder.setBounce(1);
+            boulder.setCollideWorldBounds(true);
+            boulder.setVelocity(Phaser.Math.Between(-100,100),20);
+        }
     }
     //end todo
 
