@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Game Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.19.0/phaser.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+
+    var config = {
+        type: Phaser.AUTO,
+        width: 640,
+        height: 480,
+
+        physics: {
+            //todo: add gravity
+            default: 'arcade',
+            arcade: {
+                gravity: {y:300}
+            }
+            //end todo
+        },
+
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+
+    var player;
+
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+        //halloween special
+        this.load.image('background', 'assets/halloween_background2.jpg');
+        this.load.image('jackolantern', 'assets/jackolantern.png')
+
+        //todo: assign "girl" to a different sprite of your choice in the asset folder
+        this.load.spritesheet('girl','assets/witch6.png', { frameWidth: 32, frameHeight: 48 });
+        //end todo
+
+        //todo: load ground floor
+        //end todo
+
+        //todo: load platforms
+        this.load.image('platform','assets/platform.png');
+        //end todo
+    }
+
+    function create ()
+    {
+        //halloween special
+        this.add.image(320,240, 'background');
+
+        //display a player
+        player = this.physics.add.sprite(320,240,'girl');
+
+        //create an animation sequence for walking forward
+        this.anims.create({
+            key: 'down',
+            frames: this.anims.generateFrameNumbers('girl', { start: 0, end: 3 }),
+            frameRate: 15,
+            repeat: -1
+        });
+
+        //todo: add an animation sequence for walking left
+        this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('girl', { start: 4, end: 7 }),
+            frameRate: 10,
+            repeat: -1
+        });
+        //end todo
+
+        //todo: add an animation sequence for walking right
+        this.anims.create({
+            key: 'right',
+            frames: this.anims.generateFrameNumbers('girl', { start: 8, end: 11 }),
+            frameRate: 10,
+            repeat: -1
+        });
+        //end todo
+
+        //create animation for stop position
+        this.anims.create({
+            key: 'stop',
+            frames: [ { key: 'girl', frame: 0 } ],
+            frameRate: 20
+        });
+
+        //get cursor keys
+        cursors = this.input.keyboard.createCursorKeys();
+
+        //todo: add boundary to a player
+        player.setCollideWorldBounds(true);
+        //end todo
+
+        //todo: add ground & platforms. move this behind a girl
+        platforms = this.physics.add.staticGroup();
+        platforms.create(-100,80,'platform');
+        platforms.create(740,80,'platform');
+        platforms.create(-140,200,'platform');
+        platforms.create(780,200,'platform');
+        platforms.create(780,320,'platform');
+        //end todo
+
+        //jack o lantern (not static group!!!)
+        jackolanterns = this.physics.add.group();
+        jackolanterns.create(30,40,'jackolantern');
+        jackolanterns.create(610,40,'jackolantern');
+        jackolanterns.create(30,160,'jackolantern');
+        jackolanterns.create(610,160,'jackolantern');
+        jackolanterns.create(610,280,'jackolantern');
+        //end todo
+
+
+        //todo: add collision between player and platforms
+        this.physics.add.collider(player,platforms);
+        this.physics.add.collider(jackolanterns,platforms);
+
+        this.physics.add.overlap(player,jackolanterns,catchjack,null,this);
+        //end todo
+
+        //todo: add bounce to a player
+        //end todo
+    }
+
+    function catchjack (player,jack) {
+        jack.disableBody(true,true);
+    }
+
+    function update ()
+    {
+        //todo: associate left and rightkeyboard buttons to corresponding animation sequences
+        if (cursors.left.isDown)
+        {
+            player.setVelocityX(-100);
+            player.anims.play('left', true);
+        }
+        else if (cursors.right.isDown)
+        {
+            player.setVelocityX(100);
+            player.anims.play('right', true);
+        }
+        //end todo
+        else {
+            player.setVelocityX(0);
+            //todo: remove y velocity = 0 when stopped
+            //player.setVelocityY(0);
+            //end todo
+            //player.anims.play('stop', true);
+        }
+
+        //todo: add jumping <- need a platform
+        if (cursors.up.isDown)
+        {
+            player.setVelocityY(-200);
+        }
+        //end todo
+
+    }
+</script>
+</body>
+
+</html>

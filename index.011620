@@ -64,7 +64,7 @@
         //end todo
 
         //todo: load boulder
-        this.load.image('boulder', 'assets/moonrock.png');
+        this.load.image('boulder','assets/moonrock.png');
         //end todo
     }
 
@@ -151,77 +151,72 @@
         //end todo
 
         //todo: add collision between unicorns and player
-        this.physics.add.overlap(unicorns,player,catchUnicorn,null,this);
+        this.physics.add.overlap(unicorns,player,catchunicorn,null,this);
         //end todo
 
         //todo: add score
-        scoreText = this.add.text(310, 180, '0', { fontSize: '28px', fill: '#000000' });
+        scoreText = this.add.text(310,180,'0', {fontSize: '28px', fill: '#000000'});
         //end todo
 
         //todo: add boulder
-        boulders = this.physics.add.group();
+        boulders = this.physics.add.group()
         //end todo
 
         //todo: add collision between boulders, platforms
-        this.physics.add.collider(boulders, platforms);
-        this.physics.add.collider(boulders, boulders);
+        this.physics.add.collider(boulders,platforms);
+        this.physics.add.collider(boulders,boulders);
         //end todo
 
         //todo: add collision between  boulders and player
-        this.physics.add.overlap(player, boulders, hitbyboulder, null, this);
+        this.physics.add.overlap(player, boulders, hitbymoonrock, null, this);
         //end todo
     }
 
     //todo: add a function to run when the player and unicorns overlap
-    function catchUnicorn (player,unicorn) {
+    function catchunicorn(player,unicorn) {
         unicorn.disableBody(true,true);
 
         score += 10;
         scoreText.setText(score);
 
-        //if clear screen, reset unicorns
+        //if no more unicorn, start over
         if (unicorns.countActive(true) == 0)
         {
             unicorns.children.iterate(function (child) {
-                 child.enableBody(true, child.x, child.y, true, true);
-
+                child.enableBody(true, child.x,child.y, true,true);
             });
 
-            //set the rock position away from the player's x position
-            //var x = (player.x < 320) ? Phaser.Math.Between(300, 640) : Phaser.Math.Between(0, 320);
+            //add boulder
             if (player.x < 320) {
-                var x = Phaser.Math.Between(540, 640)
+                var x = Phaser.Math.Between(540,640)
             } else {
-                var x = Phaser.Math.Between(0, 100)
+                var x = Phaser.Math.Between(0,100)
             }
 
-            var boulder = boulders.create(x, 20, 'boulder');
+            var boulder = boulders.create(x,20,'boulder');
             boulder.setBounce(1);
             boulder.setCollideWorldBounds(true);
-            boulder.setVelocity(Phaser.Math.Between(-100, 100), 20);
+            boulder.setVelocity(Phaser.Math.Between(-100,100),20);
         }
     }
     //end todo
 
+
+
     //todo: add a function to run when hit by a boulder
-    function hitbyboulder (player, boulder)
-    {
+    function hitbymoonrock (player, rock) {
+
         this.physics.pause();
         player.setTint(0xff0000);
-        player.anims.play('stop');
+        player.anims.play('turn');
         gameOver = true;
-        this.add.text(225, 230, 'Game Over', { fontSize: '36px', fill: '#ff0000'});
     }
+
     //end todo
 
     function update ()
     {
-
         //todo: game over
-        if (gameOver)
-        {
-            return;
-        }
         //end todo
 
         //todo: associate left and rightkeyboard buttons to corresponding animation sequences
@@ -249,7 +244,6 @@
             player.setVelocityY(-280);
         }
         //end todo
-
     }
 </script>
 </body>
