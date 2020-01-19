@@ -6,6 +6,8 @@ git clone https://github.com/botdemy/staticsite.git
 ```
 ##### Weekly Refresh
 ```
+cd staticsite
+git fetch origin
 git reset --hard origin/master
 ```
 ### How to upload/commit: (admin only)
